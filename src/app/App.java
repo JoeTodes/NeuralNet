@@ -1,7 +1,5 @@
 package app;
 
-import java.util.Arrays;
-
 import processing.core.PApplet;
 
 public class App extends PApplet {
@@ -19,12 +17,11 @@ public class App extends PApplet {
     public void setup() { // runs once on launch
         net = new NeuralNet(3, 3, 1);
         mat = new Matrix(2, 3);
-        mat.randomizeInt();
-        Matrix mat2 = new Matrix(3, 1);
-        mat2.randomizeInt();
-        System.out.println(Arrays.deepToString(mat.matrix));
-        Matrix mat3 = Matrix.transpose(mat);
-        System.out.println(Arrays.deepToString(mat3.matrix));
+        mat.randomizeInt(-10, 11);
+        mat.print();
+        mat.map(x -> x * 2);
+        mat.print();
+
     }
 
     public void draw() { // main loop

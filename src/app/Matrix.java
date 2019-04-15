@@ -1,37 +1,27 @@
 package app;
 
+import java.util.Arrays;
+
 public class Matrix {
     int rows, cols;
-    double[][] matrix;
+    double[][] data;
 
     public Matrix(int rows_, int cols_) {
         rows = rows_;
         cols = cols_;
 
-        matrix = new double[rows][cols];
+        data = new double[rows][cols];
     }
 
-    public void scMult(double n) {
-        for (int i = 0; i < rows; i++) {
-            for (int j = 0; j < cols; j++) {
-                matrix[i][j] *= n;
-            }
-        }
-    }
-
-    public void scAdd(double n) {
-        for (int i = 0; i < rows; i++) {
-            for (int j = 0; j < cols; j++) {
-                matrix[i][j] += n;
-            }
-        }
+    public void print() {
+        System.out.println(Arrays.deepToString(this.data));
     }
 
     public void elemAdd(Matrix m) {
         if ((this.rows == m.rows) && (this.cols == m.cols)) {
             for (int i = 0; i < this.rows; i++) {
                 for (int j = 0; j < this.cols; j++) {
-                    this.matrix[i][j] += m.matrix[i][j];
+                    this.data[i][j] += m.data[i][j];
                 }
             }
         } else {
@@ -43,7 +33,7 @@ public class Matrix {
         if ((this.rows == m.rows) && (this.cols == m.cols)) {
             for (int i = 0; i < this.rows; i++) {
                 for (int j = 0; j < this.cols; j++) {
-                    this.matrix[i][j] *= m.matrix[i][j];
+                    this.data[i][j] *= m.data[i][j];
                 }
             }
         } else {
@@ -58,9 +48,9 @@ public class Matrix {
                 for (int j = 0; j < result.cols; j++) {
                     double sum = 0;
                     for (int k = 0; k < a.cols; k++) {
-                        sum += a.matrix[i][k] * b.matrix[k][j];
+                        sum += a.data[i][k] * b.data[k][j];
                     }
-                    result.matrix[i][j] = sum;
+                    result.data[i][j] = sum;
                 }
             }
         } else {
@@ -73,17 +63,40 @@ public class Matrix {
         Matrix result = new Matrix(a.cols, a.rows);
         for (int i = 0; i < result.rows; i++) {
             for (int j = 0; j < result.cols; j++) {
-                result.matrix[i][j] = a.matrix[j][i];
+                result.data[i][j] = a.data[j][i];
             }
         }
         return result;
     }
 
-    public void randomizeInt() {
+    public void map(Func map) {
+        for (int i = 0; i < rows; i++) {
+            for (int j = 0; j < cols; j++) {
+                double val = data[i][j];
+                data[i][j] = map.apply(val);
+            }
+        }
+    }
 
+    @FunctionalInterface
+    public interface Func {
+        double apply(double val);
+    }
+
+    public void randomizeInt(double min, double max) {
+        double range = max - min;
         for (int i = 0; i < this.rows; i++) {
             for (int j = 0; j < this.cols; j++) {
-                this.matrix[i][j] = Math.floor((Math.random() - 0.5) * 20);
+                this.data[i][j] = Math.floor((Math.random() * range) + min);
+            }
+        }
+    }
+
+    public void randomizeDouble(double min, double max) {
+        double range = max - min;
+        for (int i = 0; i < this.rows; i++) {
+            for (int j = 0; j < this.cols; j++) {
+                this.data[i][j] = ((Math.random() * range) + min);
             }
         }
     }
