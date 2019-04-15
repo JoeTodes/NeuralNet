@@ -101,4 +101,23 @@ public class Matrix {
         }
     }
 
+    public static Matrix fromArray(double[] input) {
+        int len = input.length;
+        Matrix result = new Matrix(len, 1);
+        for (int i = 0; i < len; i++) {
+            result.data[i][0] = input[i];
+        }
+        return result;
+    }
+
+    public double[] toArray() {
+        double[] result = new double[this.rows * this.cols];
+        for (int i = 0; i < this.rows; i++) {
+            for (int j = 0; j < this.cols; j++) {
+                result[i * this.cols + j] = this.data[i][j];
+            }
+        }
+        return result;
+    }
+
 }

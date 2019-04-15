@@ -3,8 +3,6 @@ package app;
 import processing.core.PApplet;
 
 public class App extends PApplet {
-    NeuralNet net;
-    Matrix mat;
 
     public static void main(String[] args) {
         PApplet.main("app.App"); // must match this file name and package
@@ -15,12 +13,9 @@ public class App extends PApplet {
     }
 
     public void setup() { // runs once on launch
-        net = new NeuralNet(3, 3, 1);
-        mat = new Matrix(2, 3);
-        mat.randomizeInt(-10, 11);
-        mat.print();
-        mat.map(x -> x * 2);
-        mat.print();
+        NeuralNet net = new NeuralNet(5, 3, 2);
+        double[] input = { -2, -3, -2, 0, 8 };
+        double[] output = net.feedforward(input);
 
     }
 
