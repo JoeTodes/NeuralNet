@@ -14,9 +14,10 @@ public class App extends PApplet {
 
     public void setup() { // runs once on launch
         NeuralNet net = new NeuralNet(5, 3, 2);
-        double[] input = { -2, -3, -2, 0, 8 };
-        double[] output = net.feedforward(input);
-
+        double[] inputs = { -2, -3, -2, 0, 8 };
+        double[] targets = { 1, 0 };
+        // double[] outputs = net.feedforward(inputs);
+        net.train(inputs, targets);
     }
 
     public void draw() { // main loop

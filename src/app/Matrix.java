@@ -29,6 +29,20 @@ public class Matrix {
         }
     }
 
+    public static Matrix elemSub(Matrix a, Matrix b) {
+        Matrix result = new Matrix(a.rows, a.cols);
+        if ((a.rows == b.rows) && (a.cols == b.cols)) {
+            for (int i = 0; i < result.rows; i++) {
+                for (int j = 0; j < result.cols; j++) {
+                    result.data[i][j] = a.data[i][j] - b.data[i][j];
+                }
+            }
+        } else {
+            System.err.println("attempting to perform subtraction on bad sizes");
+        }
+        return result;
+    }
+
     public void elemMult(Matrix m) {
         if ((this.rows == m.rows) && (this.cols == m.cols)) {
             for (int i = 0; i < this.rows; i++) {
