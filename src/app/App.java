@@ -3,6 +3,9 @@ package app;
 import processing.core.PApplet;
 
 public class App extends PApplet {
+    double[][] inputArr = { { 1, 0 }, { 1, 1 }, { 0, 0 }, { 0, 1 } };
+    double[][] targetArr = { { 1 }, { 0 }, { 0 }, { 1 } };
+    NeuralNet net;
 
     public static void main(String[] args) {
         PApplet.main("app.App"); // must match this file name and package
@@ -13,11 +16,15 @@ public class App extends PApplet {
     }
 
     public void setup() { // runs once on launch
-        NeuralNet net = new NeuralNet(5, 3, 2);
-        double[] inputs = { -2, -3, -2, 0, 8 };
-        double[] targets = { 1, 0 };
-        // double[] outputs = net.feedforward(inputs);
-        net.train(inputs, targets);
+        net = new NeuralNet(2, 2, 1, 0.3);
+        for (int j = 0; j < 10000; j++) {
+            int index = floor(random(0, 4));
+            net.train(this.inputArr[index], this.targetArr[index]);
+        }
+
+        for (int i = 0; i < 4; i++) {
+            Matrix.fromArray(this.net.feedforward(inputArr[i])).print();
+        }
     }
 
     public void draw() { // main loop

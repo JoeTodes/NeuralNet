@@ -92,6 +92,17 @@ public class Matrix {
         }
     }
 
+    public static Matrix map(Matrix m, Func map) {
+        Matrix result = new Matrix(m.rows, m.cols);
+        for (int i = 0; i < m.rows; i++) {
+            for (int j = 0; j < m.cols; j++) {
+                double val = m.data[i][j];
+                result.data[i][j] = map.apply(val);
+            }
+        }
+        return result;
+    }
+
     @FunctionalInterface
     public interface Func {
         double apply(double val);
