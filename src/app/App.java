@@ -16,15 +16,21 @@ public class App extends PApplet {
     }
 
     public void setup() { // runs once on launch
-        net = new NeuralNet(2, 2, 1, 0.3);
-        for (int j = 0; j < 10000; j++) {
+        // net = new NeuralNet(2, 2, 1, 0.3);
+        int[] config = { 2, 6, 1 };
+        NeuralNet nn = new NeuralNet(config, 0.1);
+        // nn.feedforward(this.inputArr[0]);
+
+        for (int j = 0; j < 100000; j++) {
             int index = floor(random(0, 4));
-            net.train(this.inputArr[index], this.targetArr[index]);
+            nn.train(this.inputArr[index], this.targetArr[index]);
         }
 
         for (int i = 0; i < 4; i++) {
-            Matrix.fromArray(this.net.feedforward(inputArr[i])).print();
+            nn.feedforward(inputArr[i]);
+            nn.results[2].print();
         }
+
     }
 
     public void draw() { // main loop
